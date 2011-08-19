@@ -4,6 +4,7 @@ Widget for jQuery Fancybox
 Usage
 -----
 in a view `views/photos.php`:
+
 ~~~
 [php]
 $this->widget('ext.yiiext.widgets.fancybox.EFancyboxWidget',array(
