@@ -32,7 +32,7 @@ class EFancyboxWidget extends CWidget
 	 * @var string selector for generate fancybox.
 	 * Defaults to '[href$=\'.jpg\'],a[href$=\'.png\'],a[href$=\'.gif\']'.
 	 */
-	public $selector='[href$=\'.jpg\'],a[href$=\'.png\'],a[href$=\'.gif\']'; //a:has(img)
+	public $selector='a[href$=\'.jpg\'],a[href$=\'.png\'],a[href$=\'.gif\']'; //a:has(img)
 	/**
 	 * @var boolean enable "mouse-wheel" to navigate throught gallery items.
 	 * Defaults to false.
