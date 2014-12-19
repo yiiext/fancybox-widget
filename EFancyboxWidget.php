@@ -52,10 +52,10 @@ class EFancyboxWidget extends CWidget
 			$this->assetsUrl=Yii::app()->getAssetManager()->publish(dirname(__FILE__).'/assets',false,-1,YII_DEBUG);
 
 		if($this->scriptFile===null)
-			$this->scriptFile=YII_DEBUG ? 'jquery.fancybox-1.3.4.js' : 'jquery.fancybox-1.3.4.pack.js';
+			$this->scriptFile=YII_DEBUG ? 'jquery.fancybox-2.1.5.js' : 'jquery.fancybox-2.1.5.pack.js';
 
 		if($this->cssFile===null)
-			$this->cssFile='jquery.fancybox-1.3.4.css';
+			$this->cssFile='jquery.fancybox-2.1.5.css';
 
 		$this->registerClientScript();
 	}
@@ -76,13 +76,24 @@ class EFancyboxWidget extends CWidget
 			$cs->registerCssFile($this->assetsUrl.'/'.$this->cssFile);
 		$cs->registerCoreScript('jquery');
 		$cs->registerScriptFile($this->assetsUrl.'/'.$this->scriptFile);
-		// Registry easing script for elastic transition.
-		if((isset($this->options['transitionIn']) && $this->options['transitionIn']=='elastic')
-			|| (isset($this->options['transitionOut']) && $this->options['transitionOut']=='elastic'))
-			$cs->registerScriptFile($this->assetsUrl.'/jquery.easing-1.3.pack.js');
-		// Registry mouse-wheel script if mouse-wheel enabled.  
+
+        // Registry mouse-wheel script if mouse-wheel enabled.
 		if($this->enableMouseWheel)
-			$cs->registerScriptFile($this->assetsUrl.'/jquery.mousewheel-3.0.4.pack.js');
-		$cs->registerScript($this->getId(),'$("'.$this->selector.'").fancybox('.CJavaScript::encode($this->options).');',CClientScript::POS_READY);
+            $cs->registerScriptFile($this->assetsUrl.'/jquery.mousewheel-3.1.3.pack.js');
+
+        if(isset($this->options['helpers']['media']))
+            $cs->registerScriptFile($this->assetsUrl.'/helpers/jquery.fancybox-media-1.0.6.js');
+
+        if(isset($this->options['helpers']['thumbs'])){
+		    $cs->registerCssFile($this->assetsUrl.'/helpers/jquery.fancybox-thumbs-1.0.7.css');
+            $cs->registerScriptFile($this->assetsUrl.'/helpers/jquery.fancybox-thumbs-1.0.7.js');
+        }
+
+        if(isset($this->options['helpers']['buttons'])){
+		    $cs->registerCssFile($this->assetsUrl.'/helpers/jquery.fancybox-buttons-1.0.5.css');
+            $cs->registerScriptFile($this->assetsUrl.'/helpers/jquery.fancybox-buttons-1.0.5.js');
+        }
+
+        $cs->registerScript($this->getId(),'$("'.$this->selector.'").fancybox('.CJavaScript::encode($this->options).');',CClientScript::POS_READY);
 	}
 }
